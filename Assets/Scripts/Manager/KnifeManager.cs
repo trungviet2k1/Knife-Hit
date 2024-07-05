@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class KnifeController : MonoBehaviour
+public class KnifeManager : MonoBehaviour
 {
-    public static KnifeController Instance { get; private set; }
+    public static KnifeManager Instance { get; private set; }
 
     public float throwSpeed;
     public GameObject knifePrefab;
@@ -44,5 +44,13 @@ public class KnifeController : MonoBehaviour
         GameObject newKnife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity, knifeSpawnPoint);
         rb = newKnife.GetComponent<Rigidbody2D>();
         isThrown = false;
+    }
+
+    public void RemoveKnife()
+    {
+        foreach (Transform child in knifeSpawnPoint)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
