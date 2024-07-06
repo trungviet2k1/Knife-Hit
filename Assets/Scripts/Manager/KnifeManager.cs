@@ -4,12 +4,15 @@ public class KnifeManager : MonoBehaviour
 {
     public static KnifeManager Instance { get; private set; }
 
+    [Header("Knife Settings")]
     public float throwSpeed;
     public GameObject knifePrefab;
     public Transform knifeSpawnPoint;
 
     private Rigidbody2D rb;
     private bool isThrown = false;
+    private int score = 0;
+    private int knivesRemaining;
 
     void Awake()
     {
@@ -21,7 +24,10 @@ public class KnifeManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
 
+    void Start()
+    {
         InstantiateNewKnife();
     }
 
@@ -31,26 +37,54 @@ public class KnifeManager : MonoBehaviour
         {
             isThrown = true;
             rb.velocity = new Vector2(0, throwSpeed);
+            knivesRemaining--;
         }
     }
 
-    public void InstantiateNewKnifeAfterEmbed()
+    public void InstantiateNewKnife()
     {
-        Invoke(nameof(InstantiateNewKnife), 0.05f);
+        if (knivesRemaining > 0)
+        {
+            RemoveAllKnives();
+            GameObject newKnife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity, knifeSpawnPoint);
+            rb = newKnife.GetComponent<Rigidbody2D>();
+            isThrown = false;
+        }
     }
 
-    void InstantiateNewKnife()
+    public void SetKnivesRemaining(int knives)
     {
-        GameObject newKnife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity, knifeSpawnPoint);
-        rb = newKnife.GetComponent<Rigidbody2D>();
-        isThrown = false;
+        knivesRemaining = knives;
     }
 
-    public void RemoveKnife()
+    public void ResetKnives()
+    {
+        RemoveAllKnives();
+        InstantiateNewKnife();
+    }
+
+    public void RemoveAllKnives()
     {
         foreach (Transform child in knifeSpawnPoint)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void IncrementScore()
+    {
+        score++;
+        UpdateScoreUI();
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScoreUI();
+    }
+
+    void UpdateScoreUI()
+    {
+        GamePlayManager.Instance.UpdateScore(score);
     }
 }

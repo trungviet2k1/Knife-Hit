@@ -4,6 +4,7 @@ public class GameOverManager : MonoBehaviour
 {
     public static GameOverManager Instance { get; private set; }
 
+    [Header("Game Over UI")]
     public GameObject gameOverPanel;
 
     void Awake()
@@ -21,14 +22,13 @@ public class GameOverManager : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
+        KnifeManager.Instance.ResetScore();
     }
 
     public void Restart()
     {
         gameOverPanel.SetActive(false);
-        TargetManager.Instance.RestartTarget();
-        KnifeManager.Instance.RemoveKnife();
-        KnifeManager.Instance.InstantiateNewKnifeAfterEmbed();
+        LevelManager.Instance.RestartLevel();
     }
 
     public void BackToHome()

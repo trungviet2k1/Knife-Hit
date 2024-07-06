@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db7b26b92d293f42bdc812de7ccfcee, type: 3}
+  m_Name: Stage 3
+  m_EditorClassIdentifier: 
+  stageNumber: 3
+  rotationSpeed: 130
+  numberOfKnives: 8
+  Targets: {fileID: 5070662152623117525, guid: b97c702f21794cf4380e98ac7160d7ec, type: 3}

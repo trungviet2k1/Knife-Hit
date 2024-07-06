@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3162707955422682540}
   - component: {fileID: 7161515950551544470}
   - component: {fileID: 5157884060166906202}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: BaseKnife
   m_TagString: Knife
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0024978518, y: -0.008847117}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.18, y: 6.02}
+  m_Size: {x: 0.82287633, y: 6.048109}
   m_EdgeRadius: 0
 --- !u!50 &5157884060166906202
 Rigidbody2D:

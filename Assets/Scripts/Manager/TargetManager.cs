@@ -1,17 +1,18 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
     public static TargetManager Instance { get; private set; }
 
+    [Header("Target Settings")]
+    public Transform targetSpawnPoint;
     public float rotationSpeed;
-    public float knifeEmbedDepth;
-    public float bounceForce = 10f;
-    public float gameOverDelay = 1.5f;
 
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
+    private readonly List<GameObject> targets = new();
+    private int knivesEmbedded = 0;
+    private int requiredKnives = 0;
+    private bool levelCompleted = false;
 
     void Awake()
     {
@@ -23,62 +24,46 @@ public class TargetManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
     }
 
     void Update()
     {
-        transform.Rotate(initialRotation.x, initialRotation.y, rotationSpeed * Time.deltaTime);
+        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void SetLevelData(LevelData levelData)
     {
-        if (collision.gameObject.CompareTag("Knife"))
+        rotationSpeed = levelData.rotationSpeed;
+        requiredKnives = levelData.numberOfKnives;
+        knivesEmbedded = 0;
+        levelCompleted = false;
+
+        ClearTargets();
+
+        GameObject newTarget = Instantiate(levelData.Targets, targetSpawnPoint.position, Quaternion.identity, transform);
+        targets.Add(newTarget);
+    }
+
+    public void KnifeEmbedded()
+    {
+        knivesEmbedded++;
+        if (knivesEmbedded == requiredKnives && !levelCompleted)
         {
-            Rigidbody2D knifeRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            levelCompleted = true;
 
-            foreach (Transform child in transform)
-            {
-                if (child.CompareTag("Knife") && child != collision.transform)
-                {
-                    if (Vector2.Distance(collision.transform.position, child.position) < 0.3f)
-                    {
-                        knifeRb.isKinematic = false;
-                        Vector2 bounceDirection = (collision.transform.position - child.position).normalized;
-                        knifeRb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
-                        rotationSpeed = 0f;
-                        StartCoroutine(ShowGameOverPanel());
-                        return;
-                    }
-                }
-            }
+            //Updated UI, Animation and effects for target when winning
 
-            if (collision.transform.parent != transform)
-            {
-                knifeRb.velocity = Vector2.zero;
-                knifeRb.isKinematic = true;
-                collision.transform.position += collision.transform.up * knifeEmbedDepth;
-                collision.transform.SetParent(transform);
-                KnifeManager.Instance.InstantiateNewKnifeAfterEmbed();
-            }
+            ClearTargets();
+            LevelManager.Instance.NextLevel();
         }
     }
 
-    IEnumerator ShowGameOverPanel()
+    private void ClearTargets()
     {
-        yield return new WaitForSeconds(gameOverDelay);
-        GameOverManager.Instance.GameOver();
-    }
-
-    public void RestartTarget()
-    {
-        rotationSpeed = 150;
-        transform.SetPositionAndRotation(initialPosition, initialRotation);
-        foreach (Transform child in transform)
+        foreach (var target in targets)
         {
-            Destroy(child.gameObject);
+            Destroy(target);
         }
+        targets.Clear();
     }
 }
