@@ -54,6 +54,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             Debug.Log("Game Completed!");
+            TargetManager.Instance.rotationSpeed = 0f;
         }
     }
 

@@ -138,6 +138,9 @@ MonoBehaviour:
   knifeEmbedDepth: 0.35
   bounceForce: 21
   gameOverDelay: 0.5
+  rotationSpeed: 0
+  reverseRotation: 0
+  pauseDuration: 0
 --- !u!1001 &4513308685753138867
 PrefabInstance:
   m_ObjectHideFlags: 0

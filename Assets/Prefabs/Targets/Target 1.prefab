@@ -136,3 +136,6 @@ MonoBehaviour:
   knifeEmbedDepth: 0.35
   bounceForce: 21
   gameOverDelay: 0.5
+  rotationSpeed: 0
+  reverseRotation: 0
+  pauseDuration: 0

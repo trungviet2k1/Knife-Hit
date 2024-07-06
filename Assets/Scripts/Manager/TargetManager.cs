@@ -7,12 +7,13 @@ public class TargetManager : MonoBehaviour
 
     [Header("Target Settings")]
     public Transform targetSpawnPoint;
-    public float rotationSpeed;
 
     private readonly List<GameObject> targets = new();
     private int knivesEmbedded = 0;
     private int requiredKnives = 0;
     private bool levelCompleted = false;
+
+    [HideInInspector] public float rotationSpeed = 0;
 
     void Awake()
     {
@@ -26,11 +27,6 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
-    }
-
     public void SetLevelData(LevelData levelData)
     {
         rotationSpeed = levelData.rotationSpeed;
@@ -42,6 +38,11 @@ public class TargetManager : MonoBehaviour
 
         GameObject newTarget = Instantiate(levelData.Targets, targetSpawnPoint.position, Quaternion.identity, transform);
         targets.Add(newTarget);
+
+        var rotatingTarget = newTarget.GetComponent<Target>();
+        rotatingTarget.SetRotationSpeed(levelData.rotationSpeed);
+        rotatingTarget.reverseRotation = levelData.reverseRotation;
+        rotatingTarget.pauseDuration = levelData.pauseDuration;
     }
 
     public void KnifeEmbedded()
@@ -65,5 +66,29 @@ public class TargetManager : MonoBehaviour
             Destroy(target);
         }
         targets.Clear();
+    }
+
+    public void ToggleTargetPause(int index, float duration)
+    {
+        if (index >= 0 && index < targets.Count)
+        {
+            targets[index].GetComponent<Target>().PauseRotation(duration);
+        }
+    }
+
+    public void ToggleTargetReverse(int index)
+    {
+        if (index >= 0 && index < targets.Count)
+        {
+            targets[index].GetComponent<Target>().ToggleReverseRotation();
+        }
+    }
+
+    public void SetTargetRotationSpeed(int index, float speed)
+    {
+        if (index >= 0 && index < targets.Count)
+        {
+            targets[index].GetComponent<Target>().SetRotationSpeed(speed);
+        }
     }
 }

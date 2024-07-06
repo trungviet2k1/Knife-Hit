@@ -8,14 +8,58 @@ public class Target : MonoBehaviour
     public float bounceForce = 10f;
     public float gameOverDelay = 1.5f;
 
-    void Update()
+    [Header("Rotation Settings")]
+    public float rotationSpeed;
+    public bool reverseRotation;
+    public float pauseDuration;
+
+    private bool isPaused = false;
+    private Coroutine rotationCoroutine;
+
+    private void Start()
     {
-        transform.Rotate(0, 0, TargetManager.Instance.rotationSpeed * Time.deltaTime);
+        rotationSpeed = TargetManager.Instance.rotationSpeed;
+        rotationCoroutine = StartCoroutine(RotationRoutine());
     }
 
     public void SetRotationSpeed(float speed)
     {
         TargetManager.Instance.rotationSpeed = speed;
+    }
+
+    public void ToggleReverseRotation()
+    {
+        reverseRotation = !reverseRotation;
+    }
+
+    public void PauseRotation(float duration)
+    {
+        if (rotationCoroutine != null)
+        {
+            StopCoroutine(rotationCoroutine);
+        }
+        StartCoroutine(PauseRoutine(duration));
+    }
+
+    private IEnumerator PauseRoutine(float duration)
+    {
+        isPaused = true;
+        yield return new WaitForSeconds(duration);
+        isPaused = false;
+        rotationCoroutine = StartCoroutine(RotationRoutine());
+    }
+
+    private IEnumerator RotationRoutine()
+    {
+        while (true)
+        {
+            if (!isPaused)
+            {
+                float direction = reverseRotation ? -1 : 1;
+                transform.Rotate(0, 0, rotationSpeed * direction * Time.deltaTime);
+            }
+            yield return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,7 +77,7 @@ public class Target : MonoBehaviour
                         knifeRb.isKinematic = false;
                         Vector2 bounceDirection = (collision.transform.position - child.position).normalized;
                         knifeRb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
-                        TargetManager.Instance.rotationSpeed = 0f;
+                        PauseRotation(rotationSpeed = 0);
                         StartCoroutine(ShowGameOverPanel());
                         return;
                     }

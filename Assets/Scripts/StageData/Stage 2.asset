@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Stage 2
   m_EditorClassIdentifier: 
   stageNumber: 2
-  rotationSpeed: 120
   numberOfKnives: 9
   Targets: {fileID: 5070662152623117525, guid: b786001acb1248f4c82dda2e5e1dee39, type: 3}
+  rotationSpeed: 150
+  reverseRotation: 1
+  pauseDuration: 0.2
