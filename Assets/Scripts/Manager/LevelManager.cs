@@ -6,8 +6,10 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
-    [Header("Stage Settings")]
+    [Header("List Stages")]
     public List<LevelData> levels;
+
+    [Header("Stage Transition Delay")]
     public float levelTransitionDelay = 1.5f;
 
     private int currentLevelIndex = 0;
