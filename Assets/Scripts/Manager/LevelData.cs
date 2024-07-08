@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewLevelData", menuName = "LevelData")]
 public class LevelData : ScriptableObject
@@ -11,5 +11,9 @@ public class LevelData : ScriptableObject
     [Header("Rotation Settings")]
     public float rotationSpeed;
     public bool reverseRotation;
+
+    [Header("Pause Duration")]
     public float pauseDuration;
+    public bool completeStop;
+    public bool speedGraduallyDecreases;
 }

@@ -17,4 +17,4 @@ MonoBehaviour:
   Targets: {fileID: 5070662152623117525, guid: b786001acb1248f4c82dda2e5e1dee39, type: 3}
   rotationSpeed: 150
   reverseRotation: 1
-  pauseDuration: 0.2
+  pauseDuration: 0

@@ -22,7 +22,7 @@ public class GameOverManager : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
-        KnifeManager.Instance.ResetScore();
+        ScoreManager.Instance.ResetScore();
     }
 
     public void Restart()

@@ -8,6 +8,7 @@ public class GamePlayManager : MonoBehaviour
     [Header("Gameplay UI")]
     public TextMeshProUGUI stageTitle;
     public TextMeshProUGUI score;
+    public TextMeshProUGUI coin;
 
     void Awake()
     {
@@ -29,5 +30,10 @@ public class GamePlayManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         this.score.text = score.ToString();
+    }
+
+    public void UpdateCoin(int coinNumber)
+    {
+        coin.text = coinNumber.ToString();
     }
 }

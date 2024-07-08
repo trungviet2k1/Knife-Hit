@@ -43,6 +43,8 @@ public class TargetManager : MonoBehaviour
         rotatingTarget.SetRotationSpeed(levelData.rotationSpeed);
         rotatingTarget.reverseRotation = levelData.reverseRotation;
         rotatingTarget.pauseDuration = levelData.pauseDuration;
+        rotatingTarget.completeStop = levelData.completeStop;
+        rotatingTarget.speedGraduallyDecreases = levelData.speedGraduallyDecreases;
     }
 
     public void KnifeEmbedded()
@@ -52,7 +54,7 @@ public class TargetManager : MonoBehaviour
         {
             levelCompleted = true;
 
-            //Updated UI, Animation and effects for target when winning
+            // Updated UI, Animation and effects for target when winning
 
             ClearTargets();
             LevelManager.Instance.NextLevel();
@@ -66,29 +68,5 @@ public class TargetManager : MonoBehaviour
             Destroy(target);
         }
         targets.Clear();
-    }
-
-    public void ToggleTargetPause(int index, float duration)
-    {
-        if (index >= 0 && index < targets.Count)
-        {
-            targets[index].GetComponent<Target>().PauseRotation(duration);
-        }
-    }
-
-    public void ToggleTargetReverse(int index)
-    {
-        if (index >= 0 && index < targets.Count)
-        {
-            targets[index].GetComponent<Target>().ToggleReverseRotation();
-        }
-    }
-
-    public void SetTargetRotationSpeed(int index, float speed)
-    {
-        if (index >= 0 && index < targets.Count)
-        {
-            targets[index].GetComponent<Target>().SetRotationSpeed(speed);
-        }
     }
 }

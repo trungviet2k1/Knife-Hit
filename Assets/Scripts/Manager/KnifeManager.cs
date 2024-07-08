@@ -11,7 +11,6 @@ public class KnifeManager : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isThrown = false;
-    private int score = 0;
     private int knivesRemaining;
 
     void Awake()
@@ -69,22 +68,5 @@ public class KnifeManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    public void IncrementScore()
-    {
-        score++;
-        UpdateScoreUI();
-    }
-
-    public void ResetScore()
-    {
-        score = 0;
-        UpdateScoreUI();
-    }
-
-    void UpdateScoreUI()
-    {
-        GamePlayManager.Instance.UpdateScore(score);
     }
 }

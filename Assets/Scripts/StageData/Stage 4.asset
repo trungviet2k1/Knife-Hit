@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6db7b26b92d293f42bdc812de7ccfcee, type: 3}
-  m_Name: Stage 3
+  m_Name: Stage 4
   m_EditorClassIdentifier: 
-  stageNumber: 3
-  numberOfKnives: 8
-  Targets: {fileID: 5070662152623117525, guid: b97c702f21794cf4380e98ac7160d7ec, type: 3}
+  stageNumber: 4
+  numberOfKnives: 7
+  Targets: {fileID: 5070662152623117525, guid: 13bed20704654f441957fb580a846e68, type: 3}
   rotationSpeed: 170
   reverseRotation: 1
   pauseDuration: 0.75
-  completeStop: 1
-  speedGraduallyDecreases: 0
+  completeStop: 0
+  speedGraduallyDecreases: 1
