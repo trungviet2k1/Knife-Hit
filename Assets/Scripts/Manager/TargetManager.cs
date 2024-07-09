@@ -45,11 +45,14 @@ public class TargetManager : MonoBehaviour
         rotatingTarget.pauseDuration = levelData.pauseDuration;
         rotatingTarget.completeStop = levelData.completeStop;
         rotatingTarget.speedGraduallyDecreases = levelData.speedGraduallyDecreases;
+
+        GamePlayManager.Instance.InitializeKnifeIcons(levelData.numberOfKnives);
     }
 
     public void KnifeEmbedded()
     {
         knivesEmbedded++;
+        GamePlayManager.Instance.UpdateKnifeIcons(requiredKnives - knivesEmbedded);
         if (knivesEmbedded == requiredKnives && !levelCompleted)
         {
             levelCompleted = true;

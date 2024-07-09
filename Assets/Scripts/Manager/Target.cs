@@ -68,6 +68,7 @@ public class Target : MonoBehaviour
         if (collision.gameObject.CompareTag("Knife"))
         {
             HandleKnifeCollision(collision.gameObject);
+            HandleCoinCollision(collision.gameObject);
         }
     }
 
@@ -101,6 +102,19 @@ public class Target : MonoBehaviour
             KnifeManager.Instance.InstantiateNewKnife();
             ScoreManager.Instance.IncrementScore();
             TargetManager.Instance.KnifeEmbedded();
+        }
+    }
+
+    private void HandleCoinCollision(GameObject coin)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(coin.transform.position, 0f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Coin") && collider.transform.IsChildOf(transform))
+            {
+                CoinManager.Instance.IncrementCoin();
+                Destroy(collider.gameObject);
+            }
         }
     }
 

@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static CoinManager Instance { get; private set; }
+
+    private int coin = 0;
+
+    void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IncrementCoin()
     {
-        
+        coin++;
+        GamePlayManager.Instance.UpdateCoin(coin);
     }
 }
