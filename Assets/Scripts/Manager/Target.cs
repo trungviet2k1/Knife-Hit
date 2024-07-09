@@ -82,6 +82,7 @@ public class Target : MonoBehaviour
             {
                 if (Vector2.Distance(knife.transform.position, child.position) < 0.4f)
                 {
+                    SoundManager.Instance.PlayKnivesTargetSound();
                     knifeRb.isKinematic = false;
                     Vector2 bounceDirection = (knife.transform.position - child.position).normalized;
                     knifeRb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
@@ -95,6 +96,7 @@ public class Target : MonoBehaviour
 
         if (knife.transform.parent != transform)
         {
+            SoundManager.Instance.PlayHitTargetSound();
             knifeRb.velocity = Vector2.zero;
             knifeRb.isKinematic = true;
             knife.transform.position += knife.transform.up * knifeEmbedDepth;
@@ -112,6 +114,7 @@ public class Target : MonoBehaviour
         {
             if (collider.CompareTag("Coin") && collider.transform.IsChildOf(transform))
             {
+                SoundManager.Instance.PlayFruitsTargetSound();
                 CoinManager.Instance.IncrementCoin();
                 Destroy(collider.gameObject);
             }

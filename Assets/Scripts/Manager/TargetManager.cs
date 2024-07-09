@@ -39,6 +39,11 @@ public class TargetManager : MonoBehaviour
         GameObject newTarget = Instantiate(levelData.Targets, targetSpawnPoint.position, Quaternion.identity, transform);
         targets.Add(newTarget);
 
+        if (newTarget.TryGetComponent<Animator>(out var targetAnimator))
+        {
+            targetAnimator.SetTrigger("Appear");
+        }
+
         var rotatingTarget = newTarget.GetComponent<Target>();
         rotatingTarget.SetRotationSpeed(levelData.rotationSpeed);
         rotatingTarget.reverseRotation = levelData.reverseRotation;
