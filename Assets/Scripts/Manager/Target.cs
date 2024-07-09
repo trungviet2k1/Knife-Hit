@@ -80,7 +80,7 @@ public class Target : MonoBehaviour
         {
             if (child.CompareTag("Knife") && child != knife.transform)
             {
-                if (Vector2.Distance(knife.transform.position, child.position) < 0.4f)
+                if (Vector2.Distance(knife.transform.position, child.position) < 0.5f)
                 {
                     SoundManager.Instance.PlayKnivesTargetSound();
                     knifeRb.isKinematic = false;
@@ -109,7 +109,7 @@ public class Target : MonoBehaviour
 
     private void HandleCoinCollision(GameObject coin)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(coin.transform.position, 0f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(coin.transform.position, 0.1f);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Coin") && collider.transform.IsChildOf(transform))

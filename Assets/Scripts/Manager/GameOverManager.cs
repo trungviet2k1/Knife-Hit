@@ -23,6 +23,7 @@ public class GameOverManager : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         ScoreManager.Instance.ResetScore();
+        GamePlayManager.Instance.ResetStageIcons();
     }
 
     public void Restart()

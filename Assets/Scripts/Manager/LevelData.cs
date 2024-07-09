@@ -5,8 +5,10 @@ public class LevelData : ScriptableObject
 {
     [Header("Level Settings")]
     public int stageNumber;
+    public string bossName;
     public int numberOfKnives;
     public GameObject Targets;
+    public bool isBossLevel;
 
     [Header("Rotation Settings")]
     public float rotationSpeed;

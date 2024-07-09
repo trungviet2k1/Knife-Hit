@@ -41,6 +41,7 @@ public class TargetManager : MonoBehaviour
 
         if (newTarget.TryGetComponent<Animator>(out var targetAnimator))
         {
+            SoundManager.Instance.PlayTargetAppearSound();
             targetAnimator.SetTrigger("Appear");
         }
 
@@ -61,7 +62,7 @@ public class TargetManager : MonoBehaviour
         if (knivesEmbedded == requiredKnives && !levelCompleted)
         {
             levelCompleted = true;
-
+            SoundManager.Instance.PlayTargetBreakingSound();
             // Updated UI, Animation and effects for target when winning
 
             ClearTargets();

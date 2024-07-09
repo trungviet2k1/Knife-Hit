@@ -5,14 +5,18 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [Header("Sound Effects")]
+    public AudioClip targetAppear;
     public AudioClip hitTarget;
     public AudioClip hitKnives;
     public AudioClip hitFruits;
+    public AudioClip targetBreaking;
 
     [Header("Audio Sources")]
+    public AudioSource targetAppearSource;
     public AudioSource hitTargetSource;
     public AudioSource hitKnivesSource;
     public AudioSource hitFruitsSource;
+    public AudioSource targetBreakingSource;
 
     void Awake()
     {
@@ -24,6 +28,11 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void PlayTargetAppearSound()
+    {
+        targetAppearSource.PlayOneShot(targetAppear);
     }
 
     public void PlayHitTargetSound()
@@ -39,5 +48,10 @@ public class SoundManager : MonoBehaviour
     public void PlayFruitsTargetSound()
     {
         hitTargetSource.PlayOneShot(hitFruits);
+    }
+    
+    public void PlayTargetBreakingSound()
+    {
+        targetBreakingSource.PlayOneShot(targetBreaking);
     }
 }

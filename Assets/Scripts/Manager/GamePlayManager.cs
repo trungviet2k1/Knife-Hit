@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -18,6 +19,15 @@ public class GamePlayManager : MonoBehaviour
     public Sprite usedKnifeIconSprite;
     public Sprite defaultKnifeIconSprite;
 
+    [Header("Level Icon")]
+    public GameObject stageIconContainer;
+    public GameObject bossChallengeImage;
+    public Image[] stageIcons;
+    public Color defaultColor = new();
+    public Color passedLevelColor = new();
+    public Color bossLevelColor = new();
+    private Animator bossChallengeAnimator;
+
     private readonly List<Image> knifeIcons = new();
 
     void Awake()
@@ -32,9 +42,20 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        stageIcons = stageIconContainer.GetComponentsInChildren<Image>();
+        bossChallengeAnimator = bossChallengeImage.GetComponent<Animator>();
+    }
+
     public void UpdateStageTitle(int stageNumber)
     {
         stageTitle.text = "Stage " + stageNumber.ToString();
+    }
+
+    public void UpdateBossTitle(string bossTitle)
+    {
+        stageTitle.text = "BOSS: " + bossTitle;
     }
 
     public void UpdateScore(int score)
@@ -74,6 +95,62 @@ public class GamePlayManager : MonoBehaviour
             {
                 knifeIcons[i].sprite = defaultKnifeIconSprite;
             }
+        }
+    }
+
+    public void UpdateStageIcons(int levelIndex, bool isBossLevel)
+    {
+        if (levelIndex < 0 || levelIndex >= stageIcons.Length)
+        {
+            return;
+        }
+
+        if (isBossLevel)
+        {
+            HideStageIcons(levelIndex);
+            stageIcons[levelIndex].color = bossLevelColor;
+            TriggerBossChallengeAnimation();
+        }
+        else
+        {
+            stageIcons[levelIndex].color = passedLevelColor;
+            if (levelIndex > 0 && LevelManager.Instance.GetLevelData(levelIndex - 1).isBossLevel)
+            {
+                TriggerBossChallengeZoomIn();
+            }
+        }
+    }
+
+    private void HideStageIcons(int bossLevelIndex)
+    {
+        for (int i = 0; i < bossLevelIndex; i++)
+        {
+            stageIcons[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void TriggerBossChallengeAnimation()
+    {
+        if (bossChallengeAnimator != null)
+        {
+            bossChallengeAnimator.SetTrigger("ZoomOut");
+        }
+    }
+
+    private void TriggerBossChallengeZoomIn()
+    {
+        if (bossChallengeAnimator != null)
+        {
+            bossChallengeAnimator.SetTrigger("ZoomIn");
+        }
+    }
+
+    public void ResetStageIcons()
+    {
+        foreach (var icon in stageIcons)
+        {
+            icon.color = defaultColor;
+            icon.gameObject.SetActive(true);
         }
     }
 }

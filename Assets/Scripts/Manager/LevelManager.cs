@@ -41,7 +41,17 @@ public class LevelManager : MonoBehaviour
         TargetManager.Instance.SetLevelData(levelData);
         KnifeManager.Instance.SetKnivesRemaining(levelData.numberOfKnives);
         KnifeManager.Instance.ResetKnives();
-        GamePlayManager.Instance.UpdateStageTitle(levelData.stageNumber);
+
+        GamePlayManager.Instance.UpdateStageIcons(currentLevelIndex, levelData.isBossLevel);
+
+        if (levelData.isBossLevel)
+        {
+            GamePlayManager.Instance.UpdateBossTitle(levelData.bossName);
+        }
+        else
+        {
+            GamePlayManager.Instance.UpdateStageTitle(levelData.stageNumber);
+        }
     }
 
     public void NextLevel()
@@ -68,5 +78,14 @@ public class LevelManager : MonoBehaviour
     {
         currentLevelIndex = 0;
         LoadLevel(currentLevelIndex);
+    }
+
+    public LevelData GetLevelData(int levelIndex)
+    {
+        if (levelIndex >= 0 && levelIndex < levels.Count)
+        {
+            return levels[levelIndex];
+        }
+        return null;
     }
 }
