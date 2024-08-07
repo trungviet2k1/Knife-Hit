@@ -17,8 +17,8 @@ MonoBehaviour:
   numberOfKnives: 8
   Targets: {fileID: 5070662152623117525, guid: fbd4f21c35d10a74ea60d921f8fc9454, type: 3}
   isBossLevel: 0
-  rotationSpeed: 170
+  rotationSpeed: 300
   reverseRotation: 1
-  pauseDuration: 0.75
+  pauseDuration: 0.5
   completeStop: 0
   speedGraduallyDecreases: 1

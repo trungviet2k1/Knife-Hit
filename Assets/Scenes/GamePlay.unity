@@ -452,12 +452,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - {fileID: 11400000, guid: 24fa4949d2df64f44abdcc02e785ff49, type: 2}
   - {fileID: 11400000, guid: d3acd225a55b4e34285497045244cfe8, type: 2}
   - {fileID: 11400000, guid: 94f8889e0ba1e534bb1bf356b319db0e, type: 2}
   - {fileID: 11400000, guid: f61a84f5122e39145adc3f69d9fd5662, type: 2}
   - {fileID: 11400000, guid: bf0978d51604e654a943d4a57721f63e, type: 2}
   - {fileID: 11400000, guid: d8de55d97f98767488a3dbd68cccc6d7, type: 2}
-  - {fileID: 11400000, guid: 24fa4949d2df64f44abdcc02e785ff49, type: 2}
   levelTransitionDelay: 1.5
 --- !u!1 &375154981
 GameObject:

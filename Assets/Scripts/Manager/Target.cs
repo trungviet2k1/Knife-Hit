@@ -159,6 +159,8 @@ public class Target : MonoBehaviour
     {
         while (true)
         {
+            rotationSpeed = 0;
+
             isPaused = false;
             float currentSpeed = initialRotationSpeed;
             while (currentSpeed > 0)
@@ -168,7 +170,36 @@ public class Target : MonoBehaviour
                 yield return null;
             }
 
+            yield return new WaitForSeconds(pauseDuration);
+
+            currentSpeed = 0;
+            while (currentSpeed < initialRotationSpeed)
+            {
+                currentSpeed += initialRotationSpeed * Time.deltaTime / pauseDuration;
+                rotationSpeed = currentSpeed;
+                yield return null;
+            }
+
+            rotationSpeed = initialRotationSpeed;
+            yield return new WaitForSeconds(pauseDuration);
+        }
+    }
+
+    private IEnumerator Type3RotationCycle()
+    {
+        while (true)
+        {
             rotationSpeed = 0;
+
+            isPaused = false;
+            float currentSpeed = initialRotationSpeed;
+            while (currentSpeed > 0)
+            {
+                currentSpeed -= initialRotationSpeed * Time.deltaTime / pauseDuration;
+                rotationSpeed = currentSpeed;
+                yield return null;
+            }
+
             yield return new WaitForSeconds(pauseDuration);
 
             currentSpeed = 0;
